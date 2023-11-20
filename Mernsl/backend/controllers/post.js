@@ -35,7 +35,6 @@ exports.createPost = async (req,res) =>{
       }
 };
 
-
 //like and unlike post 
 exports.likeAndUnlikePost  = async (req,res) => {
  try {

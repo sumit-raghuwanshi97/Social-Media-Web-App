@@ -44,7 +44,7 @@ exports.login = async (req,res) => {
         const user = await User.findOne({email}).select("+password");
 
         if(!user){
-            res.status(400).json({
+            return res.status(400).json({
                 success:false,
                 message:"User does not exists",
             });
@@ -53,7 +53,7 @@ exports.login = async (req,res) => {
         const isMatch = await user.matchPassword(password)
 
         if(!isMatch){
-            res.status(400).json({
+            return res.status(400).json({
                 success:false,
                 message:"Incorrect Password",
             }); 
@@ -173,3 +173,26 @@ exports.followUser = async (req, res) => {
         });
     }
   };
+
+exports.getProfile  = async (req,res)=>{
+  try {
+
+    const user = req.user;
+    console.log("Logged in user - " + user.name );
+    
+    return res.status(200)
+    .json({
+        success:true,
+        user,
+    });
+    
+  } catch (error) {
+    
+    return res.stauts(500)
+    .jsoan({
+        success:false,
+        message: error,
+    });
+
+  }
+}
